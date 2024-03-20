@@ -1,4 +1,4 @@
-#About the project
+# About the project
 
 "To-do" represents a revolutionary approach to task management, harnessing the power of blockchain technology to provide users with a comprehensive and secure platform. By allowing users to prioritize tasks and track progress efficiently, "To-do" enhances traditional task management methods with transparency and accountability.
 
