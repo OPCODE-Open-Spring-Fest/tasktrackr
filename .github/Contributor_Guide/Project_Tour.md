@@ -15,7 +15,7 @@ In the 'Contracts' folder, you'll find a single file with a '.sol' extension. Th
 |   |       commiting.md
 |   |       Contributing.md
 |   |       Project_Tour.md
-|   |
+|   |       
 |   +---ISSUE_TEMPLATE
 |   |       bug_report.yaml
 |   |       feature_request.yaml
@@ -32,7 +32,7 @@ In the 'Contracts' folder, you'll find a single file with a '.sol' extension. Th
 |       pre-commit
 |
 \---contracts
-        todo.sol
+        tasktrackr.sol
 ```
 #Tech stack :
 SOlidity
