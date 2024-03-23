@@ -33,6 +33,7 @@ In the 'Contracts' folder, you'll find a single file with a '.sol' extension. Th
 |
 \---contracts
         tasktrackr.sol
+
 ```
 #Tech stack :
-SOlidity
+Solidity
