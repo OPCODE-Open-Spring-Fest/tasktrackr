@@ -29,8 +29,11 @@ contract tasktrackr{
         }
     }
 
-
-
-
+    function updateTask(uint256 id, string calldata newTask) public 
+    {
+        require(id < count, "Task with given ID does not exist");
+        list[id].task = newTask;
+        emit TaskUpdated(id, newTask);
+    }
 
 }
