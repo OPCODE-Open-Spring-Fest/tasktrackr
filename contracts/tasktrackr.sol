@@ -7,6 +7,9 @@ contract tasktrackr{
         bool isCompleted;
     }
     event TaskCompleted(uint256 indexed id);
+    
+    event TaskUpdated(uint256 indexed id, string newTask);
+
     mapping( uint256=> TodoItem) public list;
 
     uint256 public count=0;
@@ -34,6 +37,5 @@ contract tasktrackr{
         require(id < count, "Task with given ID does not exist");
         list[id].task = newTask;
         emit TaskUpdated(id, newTask);
-    }
-
+    }    
 }
