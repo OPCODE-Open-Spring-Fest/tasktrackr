@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.7.0<0.9.0;
-//mapping is to be used
+//You have to use mapping
 contract tasktrackr{
     struct TodoItem {
         string task;
