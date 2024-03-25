@@ -37,5 +37,13 @@ contract tasktrackr{
         require(id < count, "Task with given ID does not exist");
         list[id].task = newTask;
         emit TaskUpdated(id, newTask);
-    }    
+    }
+
+    function deleteAllTasks() public 
+    {
+        for (uint256 i = 0; i < count; i++) {
+            delete list[i];
+        }
+        count = 0;
+    }
 }
