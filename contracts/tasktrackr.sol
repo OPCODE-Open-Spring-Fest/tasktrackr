@@ -5,9 +5,9 @@ contract tasktrackr{
     struct TodoItem {
         string task;
         bool isCompleted;
+        uint256 time;
     }
     event TaskCompleted(uint256 indexed id);
-    
     event TaskUpdated(uint256 indexed id, string newTask);
 
     mapping( uint256=> TodoItem) public list;
@@ -20,7 +20,7 @@ contract tasktrackr{
 
     function addTask(string calldata task) public 
     {
-        TodoItem memory item = TodoItem({task: task, isCompleted:false});
+        TodoItem memory item = TodoItem({task: task, isCompleted:false, , time: block.timestamp});
         list[count]=item;
         count++;
     }
@@ -39,18 +39,20 @@ contract tasktrackr{
         emit TaskUpdated(id, newTask);
     }
 
-    function displayAllTasks() public view returns (string[] memory tasks, bool[] memory statuses) {
+    function displayAllTasks() public view returns (string[] memory tasks, bool[] memory statuses,uint[] memory times) {
     string[] memory taskList = new string[](count);
     bool[] memory statusList = new bool[](count);
+    uint256[] memory timeList = new uint256[](count);
     if(count==0)
     revert("Nothing to display");
     for (uint256 i = 0; i < count; i++) {
         TodoItem memory item = list[i];
         taskList[i] = item.task;
         statusList[i] = item.isCompleted;
+        timeList[i] = item.time;
     }
 
-    return (taskList, statusList);
+    return (taskList, statusList,timeList);
 }
     
 }
