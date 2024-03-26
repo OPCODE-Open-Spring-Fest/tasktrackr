@@ -38,5 +38,19 @@ contract tasktrackr{
         list[id].task = newTask;
         emit TaskUpdated(id, newTask);
     }
+
+    function displayAllTasks() public view returns (string[] memory tasks, bool[] memory statuses) {
+    string[] memory taskList = new string[](count);
+    bool[] memory statusList = new bool[](count);
+    if(count==0)
+    revert("Nothing to display");
+    for (uint256 i = 0; i < count; i++) {
+        TodoItem memory item = list[i];
+        taskList[i] = item.task;
+        statusList[i] = item.isCompleted;
+    }
+
+    return (taskList, statusList);
+}
     
 }
