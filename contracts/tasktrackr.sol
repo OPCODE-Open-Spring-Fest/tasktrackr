@@ -30,7 +30,19 @@ contract tasktrackr{
     }
 
 
+    // Code by Jagpreet153 started
+    function displayAllTasks() public view returns (string[] memory tasks, bool[] memory statuses) {
+    string[] memory taskList = new string[](count);
+    bool[] memory statusList = new bool[](count);
+    if(count==0)    // If count is 0 reveret the changes
+    revert("Nothing to display");  
+    for (uint256 i = 0; i < count; i++) {  // Else if the tasks are completed then display them
+        TodoItem memory item = list[i];
+        taskList[i] = item.task;
+        statusList[i] = item.isCompleted;
+    }
 
-
-
+    return (taskList, statusList);
+    }
+     // Code by Jagpreet153 ended
 }
