@@ -1,43 +1,56 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.7.0<0.9.0;
-//mapping is to be used
-contract tasktrackr{
+pragma solidity >=0.7.0 <0.9.0;
+
+contract tasktrackr {
     struct TodoItem {
         string task;
         bool isCompleted;
     }
+
     event TaskCompleted(uint256 indexed id);
-    
     event TaskUpdated(uint256 indexed id, string newTask);
+    event ContractDestroyed(address indexed destroyer);
+    
+    mapping(uint256 => TodoItem) public list;
+    uint256 public count = 0;
+    address public owner;
 
-    mapping( uint256=> TodoItem) public list;
-
-    uint256 public count=0;
-    constructor()
-    {
-
+    constructor() {
+        owner = msg.sender;
     }
 
-    function addTask(string calldata task) public 
-    {
-        TodoItem memory item = TodoItem({task: task, isCompleted:false});
-        list[count]=item;
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only contract owner can call this function");
+        _;
+    }
+
+    function addTask(string calldata task) public {
+        TodoItem memory item = TodoItem({task: task, isCompleted: false});
+        list[count] = item;
         count++;
     }
-    function completeTask(uint256 id) public
-    {
-        if(!list[id].isCompleted){
-            list[id].isCompleted=true;
-            emit TaskCompleted(id);
-        }
+
+    function completeTask(uint256 id) public onlyOwner {
+        require(!list[id].isCompleted, "Task is already completed");
+        list[id].isCompleted = true;
+        emit TaskCompleted(id);
     }
 
-    function updateTask(uint256 id, string calldata newTask) public 
-    {
+    //Update task
+
+    function updateTask(uint256 id, string calldata newTask) public onlyOwner {
         require(id < count, "Task with given ID does not exist");
         list[id].task = newTask;
         emit TaskUpdated(id, newTask);
     }
+
+    // Delete everything
+
+    function destroyContract() public onlyOwner {
+        emit ContractDestroyed(msg.sender);
+        selfdestruct(payable(owner));
+    }
+}
 
     function displayAllTasks() public view returns (string[] memory tasks, bool[] memory statuses) {
     string[] memory taskList = new string[](count);
@@ -59,3 +72,4 @@ contract tasktrackr{
     }
     
 }
+
