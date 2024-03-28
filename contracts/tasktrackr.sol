@@ -51,3 +51,25 @@ contract tasktrackr {
         selfdestruct(payable(owner));
     }
 }
+
+    function displayAllTasks() public view returns (string[] memory tasks, bool[] memory statuses) {
+    string[] memory taskList = new string[](count);
+    bool[] memory statusList = new bool[](count);
+    if(count==0)
+    revert("Nothing to display");
+    for (uint256 i = 0; i < count; i++) {
+        TodoItem memory item = list[i];
+        taskList[i] = item.task;
+        statusList[i] = item.isCompleted;
+    }
+
+    return (taskList, statusList);
+}
+    function displayById(uint256 id) public view returns (string memory task, bool isCompleted) {
+    require(id < count, "Task with given ID does not exist");
+    TodoItem memory item = list[id];
+    return (item.task, item.isCompleted);
+    }
+    
+}
+
