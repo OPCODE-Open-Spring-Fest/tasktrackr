@@ -52,5 +52,10 @@ contract tasktrackr{
 
     return (taskList, statusList);
 }
+    function displayById(uint256 id) public view returns (string memory task, bool isCompleted) {
+    require(id < count, "Task with given ID does not exist");
+    TodoItem memory item = list[id];
+    return (item.task, item.isCompleted);
+    }
     
 }
