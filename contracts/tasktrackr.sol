@@ -75,4 +75,38 @@ contract tasktrackr {
         emit TaskDeleted(id);
         delete list[id];
     }
+
+    // Complete Section
+
+    function getCompletedTasks() public view returns (string[] memory) {
+        string[] memory completedTasks = new string[](count);
+        uint256 completedCount = 0;
+        for (uint256 i = 0; i < count; i++) {
+            if (list[i].isCompleted) {
+                completedTasks[completedCount] = list[i].task;
+                completedCount++;
+            }
+        }
+        assembly {
+        mstore(completedTasks, completedCount)
+        }
+        return completedTasks;
+    }
+
+    //Incomplete Section
+
+    function getIncompleteTasks() public view returns (string[] memory) {
+        string[] memory incompleteTasks = new string[](count);
+        uint256 incompleteCount = 0;
+        for (uint256 i = 0; i < count; i++) {
+            if (!list[i].isCompleted) {
+                incompleteTasks[incompleteCount] = list[i].task;
+                incompleteCount++;
+            }
+        }
+        assembly {
+            mstore(incompleteTasks, incompleteCount)
+        }
+        return incompleteTasks;
+    }
 }
