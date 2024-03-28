@@ -10,6 +10,7 @@ contract tasktrackr {
     event TaskCompleted(uint256 indexed id);
     event TaskUpdated(uint256 indexed id, string newTask);
     event ContractDestroyed(address indexed destroyer);
+    event TaskDeleted(uint256 indexed id);
     
     mapping(uint256 => TodoItem) public list;
     uint256 public count = 0;
@@ -49,5 +50,29 @@ contract tasktrackr {
     function destroyContract() public onlyOwner {
         emit ContractDestroyed(msg.sender);
         selfdestruct(payable(owner));
+    }
+
+    // Delete according to complete and incomplete
+
+    function deleteCompleteTask(uint256 id) public {
+        require(id < count, "Task with given ID does not exist");
+        require(list[id].isCompleted, "Task is not completed yet");
+        delete list[id];
+        emit TaskDeleted(id);
+    }
+
+    function deleteIncompleteTask(uint256 id) public {
+        require(id < count, "Task with given ID does not exist");
+        require(!list[id].isCompleted, "Task is already completed");
+        delete list[id];
+        emit TaskDeleted(id);
+    }
+
+    // Delete according to ID
+
+    function deleteTask(uint256 id) public {
+        require(id < count, "Task with given ID does not exist");
+        emit TaskDeleted(id);
+        delete list[id];
     }
 }
