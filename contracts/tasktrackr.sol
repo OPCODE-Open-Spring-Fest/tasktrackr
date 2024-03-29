@@ -51,7 +51,7 @@ contract tasktrackr {
         emit ContractDestroyed(msg.sender);
         selfdestruct(payable(owner));
     }
-
+    
     // Delete according to complete and incomplete
 
     function deleteCompleteTask(uint256 id) public {
@@ -59,6 +59,7 @@ contract tasktrackr {
         require(list[id].isCompleted, "Task is not completed yet");
         delete list[id];
         emit TaskDeleted(id);
+        count--;
     }
 
     function deleteIncompleteTask(uint256 id) public {
@@ -66,6 +67,7 @@ contract tasktrackr {
         require(!list[id].isCompleted, "Task is already completed");
         delete list[id];
         emit TaskDeleted(id);
+        count--;
     }
 
     // Delete according to ID
@@ -74,39 +76,6 @@ contract tasktrackr {
         require(id < count, "Task with given ID does not exist");
         emit TaskDeleted(id);
         delete list[id];
-    }
-
-    // Complete Section
-
-    function getCompletedTasks() public view returns (string[] memory) {
-        string[] memory completedTasks = new string[](count);
-        uint256 completedCount = 0;
-        for (uint256 i = 0; i < count; i++) {
-            if (list[i].isCompleted) {
-                completedTasks[completedCount] = list[i].task;
-                completedCount++;
-            }
-        }
-        assembly {
-        mstore(completedTasks, completedCount)
-        }
-        return completedTasks;
-    }
-
-    //Incomplete Section
-
-    function getIncompleteTasks() public view returns (string[] memory) {
-        string[] memory incompleteTasks = new string[](count);
-        uint256 incompleteCount = 0;
-        for (uint256 i = 0; i < count; i++) {
-            if (!list[i].isCompleted) {
-                incompleteTasks[incompleteCount] = list[i].task;
-                incompleteCount++;
-            }
-        }
-        assembly {
-            mstore(incompleteTasks, incompleteCount)
-        }
-        return incompleteTasks;
+        count--;
     }
 }
