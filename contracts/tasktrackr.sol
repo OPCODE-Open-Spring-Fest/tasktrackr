@@ -45,13 +45,6 @@ contract tasktrackr {
         emit TaskUpdated(id, newTask);
     }
 
-    // Delete everything
-
-    function destroyContract() public onlyOwner {
-        emit ContractDestroyed(msg.sender);
-        selfdestruct(payable(owner));
-    }
-    
     // Delete according to complete and incomplete
 
     function deleteCompleteTask(uint256 id) public {
