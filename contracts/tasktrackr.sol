@@ -21,7 +21,7 @@ contract tasktrackr{
     }
 
     function completeTask(uint256 id) public {
-        require(msg.sender == list[msg.sender][id].owner, "Only the owner can complete the task");
+        //require(msg.sender == list[msg.sender][id].owner, "Only the owner can complete the task");
         if(!list[msg.sender][id].isCompleted){
             list[msg.sender][id].isCompleted = true;
             emit TaskCompleted(msg.sender, id);
@@ -29,7 +29,7 @@ contract tasktrackr{
     }
 
     function updateTask(uint256 id, string calldata newTask) public {
-        require(msg.sender == list[msg.sender][id].owner, "Only the owner can update the task");
+       // require(msg.sender == list[msg.sender][id].owner, "Only the owner can update the task");
         list[msg.sender][id].task = newTask;
         emit TaskUpdated(msg.sender, id, newTask);
     }
