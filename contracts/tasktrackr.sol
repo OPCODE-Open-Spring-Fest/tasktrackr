@@ -52,7 +52,6 @@ contract tasktrackr {
         require(list[id].isCompleted, "Task is not completed yet");
         delete list[id];
         emit TaskDeleted(id);
-        count--;
     }
 
     function deleteIncompleteTask(uint256 id) public {
@@ -60,7 +59,6 @@ contract tasktrackr {
         require(!list[id].isCompleted, "Task is already completed");
         delete list[id];
         emit TaskDeleted(id);
-        count--;
     }
 
     // Delete according to ID
@@ -69,6 +67,5 @@ contract tasktrackr {
         require(id < count, "Task with given ID does not exist");
         emit TaskDeleted(id);
         delete list[id];
-        count--;
     }
 }
