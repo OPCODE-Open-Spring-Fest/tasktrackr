@@ -82,6 +82,7 @@ contract tasktrackr {
     // Complete Section
 
     function getCompletedTasks() public view returns (string[] memory) {
+        require(count > 0, "No tasks available");
         string[] memory completedTasks = new string[](count);
         uint256 completedCount = 0;
         for (uint256 i = 0; i < count; i++) {
@@ -90,6 +91,7 @@ contract tasktrackr {
                 completedCount++;
             }
         }
+        require(completedCount > 0, "No completed tasks available");
         assembly {
             mstore(completedTasks, completedCount)
         }
@@ -99,6 +101,7 @@ contract tasktrackr {
     //Incomplete Section
 
     function getIncompleteTasks() public view returns (string[] memory) {
+        require(count > 0, "No tasks available");
         string[] memory incompleteTasks = new string[](count);
         uint256 incompleteCount = 0;
         for (uint256 i = 0; i < count; i++) {
@@ -107,6 +110,7 @@ contract tasktrackr {
                 incompleteCount++;
             }
         }
+        require(incompleteCount > 0, "No incomplete tasks available");
         assembly {
             mstore(incompleteTasks, incompleteCount)
         }
@@ -118,6 +122,7 @@ contract tasktrackr {
         view
         returns (string[] memory tasks, bool[] memory statuses)
     {
+        require(count > 0, "No tasks available");
         string[] memory taskList = new string[](count);
         bool[] memory statusList = new bool[](count);
         if (count == 0) revert("Nothing to display");
